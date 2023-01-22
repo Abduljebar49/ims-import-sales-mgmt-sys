@@ -3,6 +3,10 @@ const { defResponse } = require("../function/function");
 
 const addAdmin = async (req, res, next) => {
   const { first_name, last_name, email, phone_number, code } = req.body;
+  if (!first_name || !last_name || !email || !phone_number || !code) {
+    defResponse(res, "some field is missing");
+    return;
+  }
   const data = await Admin.create({
     first_name: first_name,
     last_name: last_name,
@@ -63,11 +67,10 @@ const deleteAdmin = async (req, res, next) => {
   });
 };
 
-
-module.exports ={
-    addAdmin,
-    getAdmin,
-    getAdminById,
-    updateAdmin,
-    deleteAdmin,
-}
+module.exports = {
+  addAdmin,
+  getAdmin,
+  getAdminById,
+  updateAdmin,
+  deleteAdmin,
+};

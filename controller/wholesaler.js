@@ -1,8 +1,11 @@
-
 const Wholesaler = require("../entity/wholesaler");
 
 const addWholeSaler = async (req, res, next) => {
   const { name, tin_number } = req.body;
+  if (!name || !tin_number) {
+    defResponse(res, "some field is missing");
+    return;
+  }
   const data = await Wholesaler.create({ name: name, tin_number: tin_number });
   res.send({
     message: "Successfully created wholesaler",
@@ -30,6 +33,10 @@ const getWholeSalerById = async (req, res, next) => {
 const updateWholeSaler = async (req, res, next) => {
   const { id } = req.params;
   const { name, tin_number } = req.body;
+  if (!name || !tin_number) {
+    defResponse(res, "some field is missing");
+    return;
+  }
   const data = await Wholesaler.update(
     { name: name, tin_number: tin_number },
     { where: { id: id } }
@@ -41,18 +48,18 @@ const updateWholeSaler = async (req, res, next) => {
 };
 
 const deleteWholeSaler = async (req, res, next) => {
-    const { id } = req.params;
-    const data = await Wholesaler.destroy({ where: { id: id } });
-    res.send({
-      message: "Successfully deleted wholesaler",
-      data: data,
-    })
-}
+  const { id } = req.params;
+  const data = await Wholesaler.destroy({ where: { id: id } });
+  res.send({
+    message: "Successfully deleted wholesaler",
+    data: data,
+  });
+};
 
 module.exports = {
-    addWholeSaler,
-    getWholeSalers,
-    getWholeSalerById,
-    updateWholeSaler,
-    deleteWholeSaler
-}
+  addWholeSaler,
+  getWholeSalers,
+  getWholeSalerById,
+  updateWholeSaler,
+  deleteWholeSaler,
+};

@@ -5,7 +5,7 @@ var logger = require('morgan');
 const db = require('./db');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var mainRouter = require('./routes/main');
 
 var app = express();
 
@@ -15,8 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/api', usersRouter);
+app.use('/api', mainRouter);
 
 
 app.listen(3000,console.log("listening on port 3000"))

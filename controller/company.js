@@ -1,7 +1,12 @@
 const Company = require("../entity/company");
+const { defResponse } = require("../function/function");
 
 const addCompany = async (req, res, next) => {
   const { name, log, start_year, tin_number } = req.body;
+  if(!name||!log||!start_year||!tin_number){
+    defResponse(res,"some fields are missing");
+    return;
+  }
   const data = await Company.create({ name, log, start_year, tin_number });
   res.send({
     message: "Successfully created company",
@@ -29,6 +34,10 @@ const getCompany = async (req, res, next) => {
 const updateCompany = async (req, res, next) => {
   const { id } = req.params;
   const { name, log, start_year, tin_number } = req.body;
+  if(!name||!log||!start_year||!tin_number){
+    defResponse(res,"some fields are missing");
+    return;
+  }
   const data = await Company.update(
     { name, log, start_year, tin_number },
     { where: { id } }
