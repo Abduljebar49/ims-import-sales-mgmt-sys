@@ -61,7 +61,7 @@ const Employee = db.define("employees", {
     type: sequelize.UUID,
     allowNull: false,
     references: {
-      model: "wholesaler",
+      model: "wholesalers",
       key: "id",
     },
   },

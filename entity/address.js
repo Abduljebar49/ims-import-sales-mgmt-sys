@@ -35,7 +35,7 @@ const Address = db.define("address", {
     type: sequelize.UUID,
     allowNull: false,
     references: {
-      model: "wholesaler",
+      model: "wholesalers",
       key: "id",
     },
   },
