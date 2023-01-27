@@ -37,7 +37,12 @@ const updateWholeSaler = async (req, res, next) => {
     defResponse(res, "some field is missing");
     return;
   }
-  const data = await Wholesaler.update(
+  const data = await Wholesaler.findByPk(id);
+  if (!data) {
+    defResponse(res, "Sale not found");
+    return;
+  }
+  await data.update(
     { name: name, tin_number: tin_number },
     { where: { id: id } }
   );

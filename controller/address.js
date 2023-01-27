@@ -76,8 +76,12 @@ const updateAddress = async (req, res, next) => {
     defResponse(res, "some field is required");
     return;
   }
-
-  const data = await Address.update({
+  const data = await Address.findByPk(id);
+  if (!data) {
+    defResponse(res, "Address not found");
+    return;
+  }
+  await data.update({
     type,
     value,
     retailer_id,

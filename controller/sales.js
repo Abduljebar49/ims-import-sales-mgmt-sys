@@ -44,7 +44,12 @@ const updateSale = async (req, res, next) => {
     defResponse(res, "Some fields are missing");
     return;
   }
-  const data = await Sales.update({
+  const data = await Sales.findByPk(id);
+  if (!data) {
+    defResponse(res, "Sale not found");
+    return;
+  }
+  await data.update({
     first_name,
     last_name,
     email,

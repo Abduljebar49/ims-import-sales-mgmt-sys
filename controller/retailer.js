@@ -37,7 +37,12 @@ const updateRetailer = async (req, res, next) => {
     defResponse(res, "some field is missing");
     return;
   }
-  const data = await Retailer.update(
+  const data = await Retailer.findByPk(id);
+  if (!data) {
+    defResponse(res, "Retailer not found");
+    return;
+  }
+  await data.update(
     { name: name, tin_number: tin_number },
     { where: { id: id } }
   );

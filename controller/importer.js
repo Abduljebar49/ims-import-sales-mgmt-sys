@@ -38,8 +38,12 @@ const updateImporter = async (req, res, next) => {
     defResponse(res, "some field is missing");
     return;
   }
-
-  const data = await Importer.update(
+  const data = await Importer.findByPk(id);
+  if (!data) {
+    defResponse(res, "Importer not found");
+    return;
+  }
+  await data.update(
     { name: name, tin_number: tin_number },
     { where: { id: id } }
   );

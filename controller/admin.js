@@ -45,13 +45,22 @@ const updateAdmin = async (req, res, next) => {
     defResponse(res, "some field is missing");
     return;
   }
-  const data = await Admin.update({
+  const data = await Admin.findByPk(id);
+  if (!data) {
+    defResponse(res, "Admin not found");
+    return;
+  }
+  await data.update({
     first_name: first_name,
     last_name: last_name,
     email: email,
     phone_number: phone_number,
     code: code,
   });
+  res.send({
+    message: "Admin updated successfully",
+    data: data,
+  })
 };
 
 const deleteAdmin = async (req, res, next) => {

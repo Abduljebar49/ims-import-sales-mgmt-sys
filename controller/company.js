@@ -38,7 +38,13 @@ const updateCompany = async (req, res, next) => {
     defResponse(res,"some fields are missing");
     return;
   }
-  const data = await Company.update(
+
+  const data = await Company.findByPk(id);
+  if (!data) {
+    defResponse(res, "Company not found");
+    return;
+  }
+  await data.update(
     { name, log, start_year, tin_number },
     { where: { id } }
   );

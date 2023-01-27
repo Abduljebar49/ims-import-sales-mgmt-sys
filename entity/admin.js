@@ -18,10 +18,12 @@ const Admin = db.define("admin", {
   email: {
     type: sequelize.STRING,
     allowNull: false,
+    unique: true,
   },
   phone_number: {
     type: sequelize.STRING,
     allowNull: false,
+    unique: true,
   },
   active: {
     type: sequelize.BOOLEAN,

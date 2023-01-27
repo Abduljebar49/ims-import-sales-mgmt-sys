@@ -86,10 +86,16 @@ const updateEmployee = async (req, res) => {
     !importer_id ||
     !role_id
   ) {
-    defResponse(res, "some field is missing");
+    defResponse(res, "Some field is missing");
     return;
   }
-  const data = await Employee.update({
+
+  const data = await Employee.findByPk(id);
+  if (!data) {
+    defResponse(res, "Employee not found");
+    return;
+  }
+  await data.update({
     first_name,
     last_name,
     email,
